@@ -1,0 +1,48 @@
+.previw_stars_container{
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+
+.previw_stars_container p{
+    margin-left: 3px;
+    font-weight: bold;
+}
+.stars{
+    background-color: rgb(209, 207, 207);
+}
+.stars1{
+    background-color: #ebcc68;
+}
+.stars2{
+    background-color: #ffb700;
+}
+.stars3{
+    background-color: #DF8E1C;
+}
+.stars4{
+    background-color: #E76B22;
+}
+.stars5{
+    background-color: #dd1c1c;
+}
+
+.starshalf1 {
+    background-image: linear-gradient(to right, #ebcc68 50%, rgb(209, 207, 207) 50%);
+}
+
+.starshalf2 {
+    background-image: linear-gradient(to right, #ffb700 50%, rgb(209, 207, 207) 50%);
+}
+
+.starshalf3 {
+    background-image: linear-gradient(to right, #DF8E1C 50%, rgb(209, 207, 207) 50%);
+}
+
+.starshalf4 {
+    background-image: linear-gradient(to right, #E76B22 50%, rgb(209, 207, 207) 50%);
+}
+
+.starshalf5 {
+    background-image: linear-gradient(to right, #dd1c1c 50%, rgb(209, 207, 207) 50%);
+}

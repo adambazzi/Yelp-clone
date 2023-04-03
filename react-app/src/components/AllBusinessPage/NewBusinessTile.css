@@ -1,0 +1,85 @@
+.business-tile2{
+    color: black;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    align-items: center;
+    height: 100%;
+    padding: 5px;
+    transition: all 200ms ease-in-out;
+    /* border: 3px solid red; */
+}
+.business-tile2:hover{
+    box-shadow: 1px 1px 5px black;
+    background-color: rgb(240, 240, 240);
+}
+.bussiness-tile-image2{
+    width: 40%;
+    height: auto;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.business_tile_info{
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    text-decoration: none;
+}
+/* .business_tile_info div{
+} */
+
+.single_star{
+    /* border: 1px solid gray; */
+    padding: 3px;
+    border-radius: 2px;
+    margin: 0 1px;
+    color: rgb(255, 255, 255);
+    /* background-color: burlywood; */
+}
+.green{
+    color: rgb(0, 179, 6);
+}
+.catagories_display{
+    display: flex;
+    flex-wrap: wrap;
+    text-decoration: none;
+}
+.catagories_display:first-child{
+    margin: 2px 0px;
+}
+.catagories_display span{
+    margin: 5px 5px;
+    background-color: rgb(211, 211, 211);
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.previw_stars_container{
+    display: flex;
+    align-items: center;
+}
+
+.previw_stars_container p{
+    margin-left: 3px;
+    font-weight: bold;
+}
+.stars{
+    background-color: rgb(209, 207, 207);
+}
+.stars1{
+    background-color: #ebcc68;
+}
+.stars2{
+    background-color: #ffb700;
+}
+.stars3{
+    background-color: #DF8E1C;
+}
+.stars4{
+    background-color: #E76B22;
+}
+.stars5{
+    background-color: #dd1c1c;
+}

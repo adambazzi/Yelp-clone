@@ -1,0 +1,37 @@
+.hidden{
+    display: none;
+}
+.button-container{
+
+    position: relative;
+}
+.button-container:hover{
+    cursor: pointer;
+}
+.drop-menu{
+    width: 150px;
+    position: absolute;
+    background-color: aliceblue;
+    padding: 0px;
+    right: 0px;
+}
+.options-button{
+    /* display: inline-block; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid gray;
+    background-color: rgb(255, 255, 255);
+    /* padding: 15px; */
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+.drop-menu-item{
+    /* border-bottom: 1px solid gray; */
+    padding: 5px;
+    transition: all 100ms ease-in;
+}
+.drop-menu-item:hover{
+    background-color: rgb(179, 186, 194);
+}

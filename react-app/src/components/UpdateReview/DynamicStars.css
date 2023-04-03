@@ -1,0 +1,29 @@
+.single_star1{
+    /* border: 1px solid gray; */
+    padding: 3px;
+    border-radius: 2px;
+    font-size: 2em;
+    margin: 0 1px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(211, 211, 211);
+    transition: all 220ms ease;
+    /* background-color: burlywood; */
+}
+/* #stars-container{
+    border: 1px solid red;
+} */
+.color1{
+    background-color: #ebcc68;
+}
+.color2{
+    background-color: #ffb700;
+}
+.color3{
+    background-color: #DF8E1C;
+}
+.color4{
+    background-color: #E76B22;
+}
+.color5{
+    background-color: #dd1c1c;
+}

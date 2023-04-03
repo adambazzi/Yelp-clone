@@ -1,0 +1,77 @@
+.price-button-group {
+    /* border: 1px solid red; */
+    display: inline-block;
+    font-size: 16px;
+  }
+
+  .checkbox-label {
+    display: inline-block;
+    position: relative;
+    padding: 10px 10px;
+    margin: 0;
+    cursor: pointer;
+    font-weight: 200;
+    color: #fff;
+    background-color: #ccc;
+    border: none;
+    border-radius: 0;
+  }
+
+  .checkbox-label:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  .checkbox-label:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    display: none;
+  }
+
+  .checkbox-label:hover {
+    background-color: #aaa;
+  }
+
+  .checkbox-label input:checked ~ .label-text {
+    font-weight: bold;
+    color: #d27575;
+  }
+
+  .label-text {
+    margin: 0;
+  }
+
+  .filters-menu{
+    font-size: 18px;
+    margin: 5px;
+    padding: 15px;
+  }
+
+  .push-text span{
+    margin-left: 5px;
+  }
+  .push-text input{
+    margin-right: 10px;
+  }
+
+  .filter-type{
+    font-weight: bold;
+  }
+
+  .clear-filters{
+    color: rgb(35, 35, 255);
+  }
+  .clear-filters:hover{
+    color: rgb(2, 2, 251);
+    cursor: pointer;
+  }
+  /* .filter-button{
+    border: 1px solid red;
+  } */
+  .filter-button:hover{
+    color: rgb(53, 69, 116);
+    cursor: pointer;
+  }

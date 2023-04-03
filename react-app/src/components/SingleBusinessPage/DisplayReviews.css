@@ -1,0 +1,25 @@
+.single-business-display-reviews {
+    list-style: none;
+}
+.business-review h4 {
+    padding: 0 0 5px 0;
+    margin: 0;
+    font-family: Helvetica, sans-serif;
+}
+
+.business-review-date {
+    font-family: Helvetica, sans-serif;
+}
+
+.business-review-review {
+    margin: 5px 0;
+    font-family: Helvetica, sans-serif;
+}
+.business-review button {
+    background-color: gray;
+    color: white;
+    box-shadow: 2px 4px 0px black;
+}
+.business-review {
+    padding: 10px 0;
+}

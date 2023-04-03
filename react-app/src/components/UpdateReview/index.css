@@ -1,0 +1,28 @@
+.update-review-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.update-review-form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 900px;
+
+    position: relative;
+    z-index: 2;
+}
+
+#update-review-text{
+    background-color: aliceblue;
+    font-size: 1.5rem;
+    margin: 20px;
+    padding: 40px;
+    width:45vw;
+    height: 45vh;
+    border-radius: 15px;
+}

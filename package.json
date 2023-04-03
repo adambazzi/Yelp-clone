@@ -1,0 +1,28 @@
+{
+  "name": "group-7-project-3",
+  "version": "1.0.0",
+  "description": "This is the starter for the Flask React project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NygilNet/group-7-project-3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NygilNet/group-7-project-3/issues"
+  },
+  "homepage": "https://github.com/NygilNet/group-7-project-3#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-regular-svg-icons": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "mapbox-gl": "^2.13.0",
+    "react-map-gl": "^7.0.21"
+  }
+}
