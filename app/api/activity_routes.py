@@ -59,30 +59,7 @@ def recent_activity():
         }
         reviews_dicts.append(dic)
 
-    #Getting 10 most recent business images
-    # business_images = BusinessImage.query\
-    # .join(Business, BusinessImage.business_id==Business.id)\
-    # .with_entities(
-    #     BusinessImage.id,
-    #     BusinessImage.created_at,
-    #     BusinessImage.updated_at,
-    #     BusinessImage.url,
-    #     Business.name,
-    #     Business.id,
-    # ).order_by(BusinessImage.created_at.desc()) \
-    # .limit(10) \
-    # .all()
-    # business_image_dicts = []
-    # for bizImg in business_images:
-    #     dic = {
-    #     'id': bizImg[0],
-    #     'createdAt': bizImg[1],
-    #     'updatedAt': bizImg[2],
-    #     'url':bizImg[3],
-    #     'businessName': bizImg[4],
-    #     'type': 'businessImage'
-    #     }
-    #     business_image_dicts.append(dic)
+
     activities = business_dict+reviews_dicts
     activities.sort(key=lambda x: x['updatedAt'], reverse=True)
 
