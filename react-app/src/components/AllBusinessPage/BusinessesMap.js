@@ -2,9 +2,9 @@ import React, { useRef, useEffect, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import './BusinessMap.css'
-require('dotenv').config();
+import { key } from './mapConfig'
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiYWRhbWJhenppMTQiLCJhIjoiY2xmNjV2a3Z2MTlnMzNwbGVpMTM5cDU3ayJ9.psIMJSetkGNFHegR3jir1g'
+mapboxgl.accessToken = key
 
 export default function BusinessesMap({ businesses }) {
   const mapContainer = useRef(null);
