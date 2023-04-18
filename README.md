@@ -6,7 +6,7 @@ VGAN, a Yelp clone, is a website for users to post their restaurant businesses a
 
 ## Deployed Live Link
 
-[VGAN](https://vgan.onrender.com/)
+[VGAN](https://vgan-aegx.onrender.com)
 
 ## Technologies/Frameworks Used
 
