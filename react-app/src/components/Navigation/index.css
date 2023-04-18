@@ -145,7 +145,7 @@
 }
 
 .profile-drop-menu{
-  z-index: 2;
+  z-index: 11;
   list-style: none;
   position: absolute;
   display: flex;

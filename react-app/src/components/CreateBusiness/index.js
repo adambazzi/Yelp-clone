@@ -5,11 +5,11 @@ import { createBusiness } from '../../store/business';
 import './index.css'
 
 
-export default function CreateBusinessForm () {
-    const ownerId= useSelector((state) => state.session.user.id)
+export default function CreateBusinessForm() {
+    const ownerId = useSelector((state) => state.session.user.id)
     let catList = [
-        { id: 1, category:'Breakfast'},
-        { id: 2, category:'Burger'},
+        { id: 1, category: 'Breakfast' },
+        { id: 2, category: 'Burger' },
         { id: 3, category: 'Italian' },
         { id: 4, category: 'Desert' },
         { id: 5, category: 'Thai' },
@@ -18,10 +18,10 @@ export default function CreateBusinessForm () {
         { id: 8, category: 'French' },
         { id: 9, category: 'Vietnamese' },
         { id: 10, category: 'Cafe' },
-        ]
+    ]
 
     let startedObj = {}
-    for(let cat in catList){
+    for (let cat in catList) {
         startedObj[cat.id] = false
     }
 
@@ -46,7 +46,7 @@ export default function CreateBusinessForm () {
     const [state, setState] = useState('');
     const [lng, setLng] = useState(null);
     const [lat, setLat] = useState(null);
-    const [price, setPrice] = useState(1);
+    const [price, setPrice] = useState(0);
     const [categories, setCategories] = useState('');
     const [image1, setImage1] = useState('')
     const [image2, setImage2] = useState('')
@@ -91,15 +91,15 @@ export default function CreateBusinessForm () {
         setSelectedCategory(categoryObj)
     }
 
-    useEffect(()=>{
-        let togo=[]
-        for (let i = 1; i <11; i++) {
+    useEffect(() => {
+        let togo = []
+        for (let i = 1; i < 11; i++) {
             if (selectedCategory[i]) {
                 togo.push(i)
             }
         }
         setCategories(togo.join())
-    },[selectedCategory])
+    }, [selectedCategory])
 
     function handleFeatureChange(e) {
         let featureObj = {
@@ -109,17 +109,17 @@ export default function CreateBusinessForm () {
         setSelectedFeature(featureObj)
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         let togofeature = []
         for (let i = 1; i < 11; i++) {
             if (selectedFeature[i]) {
-                let some= feautureList.find(obj => obj.id==i)
+                let some = feautureList.find(obj => obj.id == i)
 
-               togofeature.push(some.feature)
+                togofeature.push(some.feature)
             }
             setFeatures(togofeature.join())
         }
-    },[selectedFeature])
+    }, [selectedFeature])
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -164,7 +164,7 @@ export default function CreateBusinessForm () {
         if (!newBusiness.city.toString().length) errors.city = 'City is required';
         if (!newBusiness.state.toString().length) errors.state = 'State is required';
         if (!newBusiness.lng) errors.lng = 'Longitude is required';
-        if (newBusiness.lng < -180 ) errors.lng = 'Longitude must be between -180 and 180';
+        if (newBusiness.lng < -180) errors.lng = 'Longitude must be between -180 and 180';
         if (newBusiness.lng > 180) errors.lng = 'Longitude must be beetween -180 and 180';
         if (!newBusiness.lat) errors.lat = 'Latitude is required';
         if (newBusiness.lat < -90) errors.lat = 'Lattitude must be between -90 and 90';
@@ -177,7 +177,7 @@ export default function CreateBusinessForm () {
         for (let i = 2; i <= 6; i++) {
             const imageField = newBusiness[`image${i}`];
             if (imageField.length && !/\.(png|jpe?g)$/.test(imageField)) {
-              errors[`image${i}`] = 'Image URL must end in .png, .jpg, or .jpeg';
+                errors[`image${i}`] = 'Image URL must end in .png, .jpg, or .jpeg';
             }
         }
 
@@ -199,15 +199,15 @@ export default function CreateBusinessForm () {
             <form
                 className='create-business-form'
                 onSubmit={onSubmit}
-                >
+            >
                 <div id="create-business-h1-container"><h1>Create a New Business on VGAN</h1></div>
                 <div>
                     <label>
                         What is the name of your business? <span className='validationErrors'>{validationErrors.name}</span>
                         <input
-                        type='text'
-                        onChange={(e) => setName(e.target.value)}
-                        value={name}
+                            type='text'
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}
                         />
                     </label>
                 </div>
@@ -215,38 +215,38 @@ export default function CreateBusinessForm () {
                     <label>
                         Describe your business in a few lines. <span className='validationErrors'>{validationErrors.description}</span>
                         <textarea
-                        onChange={(e) => setDescription(e.target.value)}
-                        value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            value={description}
                         ></textarea>
                     </label>
                 </div>
                 <div>
 
-                        Give us a few tags for your business. <span className='validationErrors'>{validationErrors.features}</span>
-                        {feautureList.map(({ id, feature }) => (
-                            <>
-                                <label key={feature}>
+                    Give us a few tags for your business. <span className='validationErrors'>{validationErrors.features}</span>
+                    {feautureList.map(({ id, feature }) => (
+                        <>
+                            <label key={feature}>
 
-                                    <input
-                                        type="checkbox"
-                                        name="feature"
-                                        value={id}
-                                        onChange={handleFeatureChange}
-                                    />
-                                    {feature}
-                                </label>
+                                <input
+                                    type="checkbox"
+                                    name="feature"
+                                    value={id}
+                                    onChange={handleFeatureChange}
+                                />
+                                {feature}
+                            </label>
 
-                            </>
-                        ))}
+                        </>
+                    ))}
 
                 </div>
                 <div>
                     <label>
                         What street address is your business located at? <span className='validationErrors'>{validationErrors.address}</span>
                         <input
-                        type='text'
-                        onChange={(e) => setAddress(e.target.value)}
-                        value={address}
+                            type='text'
+                            onChange={(e) => setAddress(e.target.value)}
+                            value={address}
                         />
                     </label>
                 </div>
@@ -254,76 +254,76 @@ export default function CreateBusinessForm () {
                     <label>
                         What city? <span className='validationErrors'>{validationErrors.city}</span>
                         <input
-                        type='text'
-                        onChange={(e) => setCity(e.target.value)}
-                        value={city}
+                            type='text'
+                            onChange={(e) => setCity(e.target.value)}
+                            value={city}
                         />
                     </label>
                 </div>
                 <div>
                     <label for="state-dropdown">Select a state:
-                    <select id="state-dropdown" name="state" onChange={(e) => setState(e.target.value)}>
+                        <select id="state-dropdown" name="state" onChange={(e) => setState(e.target.value)}>
                             <option value="">-- Select a state --</option>
-                                <option value="AL">Alabama</option>
-                                <option value="AK">Alaska</option>
-                                <option value="AZ">Arizona</option>
-                                <option value="AR">Arkansas</option>
-                                <option value="CA">California</option>
-                                <option value="CO">Colorado</option>
-                                <option value="CT">Connecticut</option>
-                                <option value="DE">Delaware</option>
-                                <option value="FL">Florida</option>
-                                <option value="GA">Georgia</option>
-                                <option value="HI">Hawaii</option>
-                                <option value="ID">Idaho</option>
-                                <option value="IL">Illinois</option>
-                                <option value="IN">Indiana</option>
-                                <option value="IA">Iowa</option>
-                                <option value="KS">Kansas</option>
-                                <option value="KY">Kentucky</option>
-                                <option value="LA">Louisiana</option>
-                                <option value="ME">Maine</option>
-                                <option value="MD">Maryland</option>
-                                <option value="MA">Massachusetts</option>
-                                <option value="MI">Michigan</option>
-                                <option value="MN">Minnesota</option>
-                                <option value="MS">Mississippi</option>
-                                <option value="MO">Missouri</option>
-                                <option value="MT">Montana</option>
-                                <option value="NE">Nebraska</option>
-                                <option value="NV">Nevada</option>
-                                <option value="NH">New Hampshire</option>
-                                <option value="NJ">New Jersey</option>
-                                <option value="NM">New Mexico</option>
-                                <option value="NY">New York</option>
-                                <option value="NC">North Carolina</option>
-                                <option value="ND">North Dakota</option>
-                                <option value="OH">Ohio</option>
-                                <option value="OK">Oklahoma</option>
-                                <option value="OR">Oregon</option>
-                                <option value="PA">Pennsylvania</option>
-                                <option value="RI">Rhode Island</option>
-                                <option value="SC">South Carolina</option>
-                                <option value="SD">South Dakota</option>
-                                <option value="TN">Tennessee</option>
-                                <option value="TX">Texas</option>
-                                <option value="UT">Utah</option>
-                                <option value="VT">Vermont</option>
-                                <option value="VA">Virginia</option>
-                                <option value="WA">Washington</option>
-                                <option value="WV">West Virginia</option>
-                                <option value="WI">Wisconsin</option>
-                                <option value="WY">Wyoming</option>
-                            </select>
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
                     </label>
                 </div>
                 <div>
                     <label>
                         Longitude? <span className='validationErrors'>{validationErrors.lng}</span>
                         <input
-                        type='number'
-                        onChange={(e) => setLng(e.target.value)}
-                        value={lng}
+                            type='number'
+                            onChange={(e) => setLng(e.target.value)}
+                            value={lng}
                         />
                     </label>
                 </div>
@@ -331,9 +331,9 @@ export default function CreateBusinessForm () {
                     <label>
                         Latitude? <span className='validationErrors'>{validationErrors.lat}</span>
                         <input
-                        type='number'
-                        onChange={(e) => setLat(e.target.value)}
-                        value={lat}
+                            type='number'
+                            onChange={(e) => setLat(e.target.value)}
+                            value={lat}
                         />
                     </label>
                 </div>
@@ -341,8 +341,8 @@ export default function CreateBusinessForm () {
                     <label>
                         What price category does your business belong to? <span className='validationErrors'>{validationErrors.price}</span>
                         <select
-                        onChange={(e) => setPrice(+e.target.value)}
-                        value={price}
+                            onChange={(e) => setPrice(+e.target.value)}
+                            value={price}
                         >
                             <option value={1}>$</option>
                             <option value={2}>$$</option>
@@ -356,18 +356,18 @@ export default function CreateBusinessForm () {
                     <label>
                         What are some miscellaneous categories you want to add to your business? <div className='validationErrors'>{validationErrors.categories}</div>
                         <div id='create-business-categories'>
-                            {catList.map(({id,category}) => (
+                            {catList.map(({ id, category }) => (
                                 <>
-                                <label key={category}>
+                                    <label key={category}>
 
-                                    <input
-                                        type="checkbox"
-                                        name="category"
-                                        value={id}
-                                        onChange={handleCategoryChange}
-                                    />
-                                    {category}
-                                </label>
+                                        <input
+                                            type="checkbox"
+                                            name="category"
+                                            value={id}
+                                            onChange={handleCategoryChange}
+                                        />
+                                        {category}
+                                    </label>
 
                                 </>
                             ))}
@@ -388,7 +388,7 @@ export default function CreateBusinessForm () {
                             name="image1"
                             value={image1}
                             placeholder="Preview Image URL"
-                            onChange={(e) =>setImage1(e.target.value)}
+                            onChange={(e) => setImage1(e.target.value)}
                         />
                     </label>
                     <label>
@@ -398,7 +398,7 @@ export default function CreateBusinessForm () {
                             name="image2"
                             value={image2}
                             placeholder="Image 1"
-                            onChange={(e) =>setImage2(e.target.value)}
+                            onChange={(e) => setImage2(e.target.value)}
                         />
                     </label>
                     <label>
@@ -408,7 +408,7 @@ export default function CreateBusinessForm () {
                             name="image3"
                             value={image3}
                             placeholder="Image 2"
-                            onChange={(e) =>setImage3(e.target.value)}
+                            onChange={(e) => setImage3(e.target.value)}
                         />
                     </label>
                     <label>
@@ -418,7 +418,7 @@ export default function CreateBusinessForm () {
                             name="image4"
                             value={image4}
                             placeholder="Image 3"
-                            onChange={(e) =>setImage4(e.target.value)}
+                            onChange={(e) => setImage4(e.target.value)}
                         />
                     </label>
                     <label>
@@ -428,7 +428,7 @@ export default function CreateBusinessForm () {
                             name="image5"
                             value={image5}
                             placeholder="Image 4"
-                            onChange={(e) =>setImage5(e.target.value)}
+                            onChange={(e) => setImage5(e.target.value)}
                         />
                     </label>
                     <label>
@@ -438,7 +438,7 @@ export default function CreateBusinessForm () {
                             name="image6"
                             value={image6}
                             placeholder="Image 5"
-                            onChange={(e) =>setImage6(e.target.value)}
+                            onChange={(e) => setImage6(e.target.value)}
                         />
                     </label>
                 </div>

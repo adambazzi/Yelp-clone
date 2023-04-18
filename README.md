@@ -1,14 +1,90 @@
 # VGAN
 
-## About The Project
+## Project Description
 
 VGAN, a Yelp clone, is a website for users to post their restaurant businesses and leave (possibly passive aggressive) reviews about the businesses.
 
-## Built With
+## Deployed Live Link
+
+[VGAN](https://vgan.onrender.com/)
+
+## Technologies/Frameworks Used
 
 * [Flask](https://flask.palletsprojects.com/en/2.2.x/)
 
 * [React](https://reactjs.org/)
+
+* Flask Dependencies
+
+	* click = ==8.1.3
+	* gunicorn = ==20.1.0
+	* itsdangerous = ==2.1.2
+	* python-dotenv = ==0.21.0
+	* six = ==1.16.0
+	* Flask = ==2.2.2
+	* Flask-Cors = ==3.0.10
+	* Flask-SQLAlchemy = ==3.0.2
+	* Flask-WTF = ==1.1.1
+	* Jinja2 = ==3.1.2
+	* MarkupSafe = ==2.1.2
+	* SQLAlchemy = ==1.4.46
+	* Werkzeug = ==2.2.2
+	* WTForms = ==3.0.1
+	* Flask-Migrate = ==4.0.2
+	* Flask-Login = ==0.6.2
+	* alembic = ==1.9.2
+	* python-dateutil = ==2.8.2
+	* python-editor = ==1.0.4
+	* greenlet = ==2.0.1
+	* Mako = ==1.2.4
+
+* React Dependencies
+
+	* bootstrap: ^5.2.3
+    * http-proxy-middleware: ^1.0.5
+    * mapbox-gl: ^2.13.0
+    * react: ^17.0.2
+    * react-bootstrap: ^2.7.2
+    * react-dom: ^17.0.2
+    * react-map-gl: ^7.0.21
+    * react-redux: ^7.2.4
+    * react-router-dom: ^5.2.0
+    * react-scripts: ^4.0.3
+    * redux: ^4.1.0
+    * redux-logger: ^3.0.6
+    * redux-thunk: ^2.3.0
+
+## MVP Core Features
+
+* Users
+
+	* Create, Read
+
+* Businesses
+
+	* Create, Read, Update, Delete
+
+* Reviews
+
+	* Create, Read, Update, Delete
+
+* Search/Filter
+
+	* Read
+
+* Google Maps
+
+	* Create, Read, Update
+
+## Screenshots
+
+
+
+## Future Implementation Goals
+
+- [ ] AWS buckets for images
+
+- [ ] Make site responsive to phone devices
 
 ## Getting Started
 
@@ -72,16 +148,13 @@ If you have a suggestion that would make this better, please fork the repo and c
 
 ## Contact
 
-Vusal Layijov - https://github.com/Vusal-Layijov
+Vusal Layijov - [LinkedIn](https://www.linkedin.com/in/vusal-layijov-9a6181111/) | [GitHub](https://github.com/Vusal-Layijov)
 
-Gal Atias - https://github.com/atias6051
+Gal Atias - [LinkedIn](https://www.linkedin.com/in/gal-atias/) | [GitHub](https://github.com/atias6051)
 
-Adam Bazzi - https://github.com/adambazzi
+Adam Bazzi - [LinkedIn](https://www.linkedin.com/in/adam-bazzi/) | [GitHub](https://github.com/adambazzi)
 
-Nygil Nettles - https://github.com/NygilNet
-
-
-Project Link: https://github.com/NygilNet/group-7-project-3
+Nygil Nettles - [LinkedIn](https://www.linkedin.com/in/nygil-nettles-dev/) | [GitHub](https://github.com/NygilNet)
 
 ## Acknowledgments
 

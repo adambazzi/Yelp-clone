@@ -17,6 +17,7 @@ import SingleBusiness from "./components/SingleBusinessPage";
 import UpdateReviewForm from "./components/UpdateReview";
 import UserProfilePage from "./components/ProfilePage";
 import AboutVGANPage from "./components/AboutVGANPage";
+import NotFound from "./components/PageNotFound";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -67,6 +68,9 @@ const categories=['Chiness','THai', 'salam', 'mellim']
           </Route> */}
           <Route path="/reviews/:id/edit" >
             <UpdateReviewForm />
+          </Route>
+          <Route>
+            <NotFound />
           </Route>
         </Switch>
       )}

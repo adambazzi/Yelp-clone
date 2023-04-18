@@ -1,55 +1,132 @@
-import React, { useRef, useEffect, useState } from 'react';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import React, { useEffect } from "react";
 import './BusinessMap.css'
 
-mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY
+/* global google */
 
-export default function BusinessesMap({ businesses }) {
-  const mapContainer = useRef(null);
-    const map = useRef(null);
-    const [lng, setLng] = useState(-70.9);
-    const [lat, setLat] = useState(42.35);
-    const [zoom, setZoom] = useState(9);
+function createCenterControl(myMap) {
+  const newYork = { lat: 40.7128, lng: -74.0060 };
+  const controlButton = document.createElement("button");
 
- useEffect(() => {
-      if (map.current) return; // initialize map only once
-      map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
-      center: [lng, lat],
-      zoom: zoom
+  controlButton.classList.add("buttonStyle");
+
+  controlButton.textContent = "Center Map";
+  controlButton.title = "Click to recenter the map";
+  controlButton.type = "button";
+  controlButton.addEventListener("click", () => {
+    myMap.setCenter(newYork);
+  });
+
+  return controlButton;
+}
+
+function initMap(businesses) {
+  const map = new window.google.maps.Map(document.getElementById("map"), {
+    zoom: 4,
+    center: { lat: 40.7128, lng: -74.0060 },
+    styles: [
+      {
+        featureType: "poi",
+        stylers: [{ visibility: "off" }],
+      },
+    ],
+  });
+
+  const bounds = new google.maps.LatLngBounds();
+  const markers = [];
+
+  const centerControlDiv = document.createElement("div");
+  const centerControl = createCenterControl(map);
+  centerControlDiv.appendChild(centerControl);
+  map.controls[window.google.maps.ControlPosition.TOP_CENTER].push(
+    centerControlDiv
+  );
+  let index = 1
+
+  businesses.forEach((business) => {
+    if (business && business.lat && business.lng) {
+      const marker = new google.maps.Marker({
+        position: { lat: Number(business.lat), lng: Number(business.lng) },
+        map,
+        optimized: false,
+        label: {
+          text: `${index}`,
+          color: 'black',
+          fontSize: '14px',
+          fontWeight: 'bold',
+          fontFamily: 'Arial',
+          className: 'marker-label',
+          width: '100px',
+          height: '30px',
+          background: {
+            color: 'white',
+            opacity: 1
+          },
+          borderRadius: '50%',
+          padding: '5px 8px',
+          boxShadow: '0px 0px 3px #33333333',
+          zIndex: '1'
+        },
+        icon: null,
+        businessId: business.id
       });
+      index++
+
+      markers.push(marker);
+      bounds.extend(marker.getPosition());
+
+      const infowindow = new google.maps.InfoWindow({
+        content: `
+          <a href="/businesses/${business.id}" class="infowindow">
+            <div class="infowindow-title">${business.name}</div>
+            <div class="infowindow-image-container">
+              <img src="${business.previewImage[0].url}" alt="Preview Image" class="infowindow-image">
+            </div>
+          </a>
+        `,
+      });
+
+      marker.addListener("click", () => {
+        infowindow.open(map, marker);
+        window.location.href = `/businesses/${business.id}`;
+      });
+      marker.addListener("mouseover", () => {
+        infowindow.open(map, marker);
+      });
+      marker.addListener("mouseout", () => {
+        infowindow.close();
+      });
+    }
+  });
+
+  map.fitBounds(bounds);
+
+  markers.forEach((marker) => {
+    marker.addListener("click", () => {
+      window.location.href = `/businesses/${marker.businessId}`;
     });
+  });
+}
+
+function BusinessesMap({ businesses }) {
 
   useEffect(() => {
-    // add markers for each business
-    if (map.current) {
-      const markers = businesses.map((business) => {
-        const marker = new mapboxgl.Marker()
-          .setLngLat([business.lng, business.lat])
-          .setPopup(new mapboxgl.Popup().setHTML(`<p>${business.name}</p>`))
-          .addTo(map.current);
-        return marker;
-      });
+    const script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+    script.async = true;
+    script.onload = () => {
+      initMap(businesses);
+    };
 
-      // fit map to markers
-      if (markers.length > 0) {
-        const bounds = new mapboxgl.LngLatBounds();
-        markers.forEach((marker) => {
-          bounds.extend(marker.getLngLat());
-        });
-        map.current.fitBounds(bounds, {
-          padding: 50,
-          maxZoom: 15,
-        });
-      }
-    }
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
   }, [businesses]);
 
-  return (
-      <div className="map-container-wrapper">
-        <div ref={mapContainer} className="map-container" />
-      </div>
-        );
+  window.initMap = initMap;
+
+  return <div id="map" className="map"></div>;
 }
+
+export default BusinessesMap;
