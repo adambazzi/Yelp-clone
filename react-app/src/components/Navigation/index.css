@@ -153,9 +153,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: 80px;
+  top: 85px;
   background-color: white;
   border-radius: 4px;
+  box-shadow: 0 0 5px 0 red;
 }
 .profile-drop-menu li{
   margin: 5px 0;
@@ -198,4 +199,22 @@
 
 #searchBar-explore:hover {
   background-color: #a20505;
+}
+
+.default-button{
+  margin: 5px;
+  width: 100%;
+  background-color: rgba(224,7,7,1);
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+.default-button:hover{
+  /* background-color: #a20505; */
+  box-shadow: inset 1px 1px 5px 1px white ;
+}
+.hov:hover{
+  cursor: pointer;
+}
+.dropmenu-div{
+  box-shadow: 0 0 0 5px gray;
 }

@@ -3,6 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { getBusinesses, updateBusiness } from '../../store/business';
 import { getSingleBusiness } from '../../store/business';
+import { useLoadScript } from "@react-google-maps/api";
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    geocodeByPlaceId,
+    getLatLng,
+} from 'react-places-autocomplete';
+const libraries = ['places']
 
 export default function UpdateBusiness(){
     const {id} = useParams();
@@ -10,6 +17,10 @@ export default function UpdateBusiness(){
     const history = useHistory();
     const ownerId = useSelector((state) => state.session.user.id);
 
+    const {isLoaded} = useLoadScript({
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+        libraries:libraries
+    });
 
     let feautureList = [
         { id: 1, feature: 'Outdoor seating' },
@@ -73,6 +84,18 @@ export default function UpdateBusiness(){
 
 
     const [selectedFeature, setSelectedFeature] = useState({ 1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false, 9: false, 10:false });
+
+    const handleSelect = async address => {
+        setAddress(()=>address)
+        const results = await geocodeByAddress(address)
+        const latlng = await getLatLng(results[0])
+        const addressArr = results[0].formatted_address.split(',').map(el=>el.trim())
+        setAddress(()=>addressArr[0])
+        setCity(()=>addressArr[1])
+        setState(()=>addressArr[2].split(' ')[0])
+        setLat(()=>latlng.lat)
+        setLng(()=>latlng.lng)
+    };
 
     function handleFeatureChange(e) {
         let featureObj = {
@@ -196,11 +219,49 @@ export default function UpdateBusiness(){
                 <div>
                     <label>
                         What street address is your business located at?<span className='validationErrors'>{validationErrors.address}</span>
-                        <input
-                        type='text'
-                        onChange={(e) => setAddress(e.target.value)}
-                        value={address}
-                        />
+                        <PlacesAutocomplete
+                            value={address}
+                            onChange={setAddress}
+                            onSelect={handleSelect}
+                            >
+                            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                            <label className='autocomplete-label'>
+                                <div>
+                                    Street Address
+                                </div>
+                                <input
+                                  {...getInputProps({
+                                      placeholder: 'Address',
+                                      className: 'location-search-input',
+                                    })}
+                                    />
+                                <div className="autocomplete-dropdown-container">
+                                  {loading && <div>Loading...</div>}
+                                  {!loading && suggestions.map(suggestion => {
+                                      const className = 'suggestion-item'
+                                    //   const className = suggestion.active
+                                    //   ? 'suggestion-item--active'
+                                    //   : 'suggestion-item';
+                                      // inline style for demonstration purpose
+                                        const style = suggestion.active
+                                        ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                        : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                      return (
+                                          <div className='auto-dropdown'
+                                          {...getSuggestionItemProps(suggestion, {
+                                              className,
+                                                style,
+                                            })}
+                                            >
+                                        <span>{suggestion.description}</span>
+                                      </div>
+                                    );
+                                })}
+                                </div>
+
+                            </label>
+                            )}
+                        </PlacesAutocomplete>
                     </label>
                 </div>
                 <div>
@@ -215,7 +276,12 @@ export default function UpdateBusiness(){
                 </div>
                 <div>
                     <label for="state-dropdown">Select a state: <span className='validationErrors'>{validationErrors.state}</span>
-                        <select id="state-dropdown" name="state" value={state} onChange={(e) => setState(e.target.value)}>
+                        <input
+                            type='text'
+                            onChange={(e) => setState(e.target.value)}
+                            value={state}
+                        />
+                        {/* <select id="state-dropdown" name="state" value={state} onChange={(e) => setState(e.target.value)}>
                             <option value="">-- Select a state --</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
@@ -267,10 +333,10 @@ export default function UpdateBusiness(){
                             <option value="WV">West Virginia</option>
                             <option value="WI">Wisconsin</option>
                             <option value="WY">Wyoming</option>
-                        </select>
+                        </select> */}
                     </label>
                 </div>
-                <div>
+                {/* <div>
                     <label>
                         Longitude? <span className='validationErrors'>{validationErrors.lng}</span>
                         <input
@@ -289,7 +355,7 @@ export default function UpdateBusiness(){
                         value={lat}
                         />
                     </label>
-                </div>
+                </div> */}
                 <div>
                     <label>
                         What price range is your business? <span className='validationErrors'>{validationErrors.price}</span>
@@ -345,7 +411,7 @@ export default function UpdateBusiness(){
                     </label>
                 </div> */}
                 <div>
-                    <input type="submit" />
+                    <input className="default-button" type="submit" />
                 </div>
             </form>
         </>

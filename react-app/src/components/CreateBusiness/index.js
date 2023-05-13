@@ -2,8 +2,15 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { createBusiness } from '../../store/business';
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    geocodeByPlaceId,
+    getLatLng,
+} from 'react-places-autocomplete';
 import './index.css'
 
+const libraries = ['places']
 
 export default function CreateBusinessForm() {
     const ownerId = useSelector((state) => state.session.user.id)
@@ -54,6 +61,7 @@ export default function CreateBusinessForm() {
     const [image4, setImage4] = useState('')
     const [image5, setImage5] = useState('')
     const [image6, setImage6] = useState('')
+    const [submitted,setSubmitted] = useState(false)
     // seperate state for each category
 
 
@@ -81,6 +89,11 @@ export default function CreateBusinessForm() {
     // const [selectedCategory, setSelectedCategory] = useState({ 1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false, 9:false, 10:false});
     const [selectedCategory, setSelectedCategory] = useState(startedObj);
     const [selectedFeature, setSelectedFeature] = useState({ 1: false, 2: false, 3: false, 4: false, 5: false });
+
+    const {isLoaded} = useLoadScript({
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+        libraries:libraries
+    });
 
     function handleCategoryChange(e) {
         let categoryObj = {
@@ -132,6 +145,19 @@ export default function CreateBusinessForm() {
     //     }
     //     onSubmit()
     // }
+    const handleSelect = async address => {
+        setAddress(()=>address)
+        const results = await geocodeByAddress(address)
+        const latlng = await getLatLng(results[0])
+        const addressArr = results[0].formatted_address.split(',').map(el=>el.trim())
+        setAddress(()=>addressArr[0])
+        setCity(()=>addressArr[1])
+        setState(()=>addressArr[2].split(' ')[0])
+        setLat(()=>latlng.lat)
+        setLng(()=>latlng.lng)
+    };
+
+
     const onSubmit = async (e) => {
         e.preventDefault();
 
@@ -194,6 +220,7 @@ export default function CreateBusinessForm() {
 
     }
 
+    if(!isLoaded) return (<div>Loading...</div>)
     return (
         <>
             <form
@@ -240,14 +267,58 @@ export default function CreateBusinessForm() {
                     ))}
 
                 </div>
+
                 <div>
                     <label>
                         What street address is your business located at? <span className='validationErrors'>{validationErrors.address}</span>
-                        <input
+                        <PlacesAutocomplete
+                            value={address}
+                            onChange={setAddress}
+                            onSelect={handleSelect}
+                            >
+                            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                            <label className='autocomplete-label'>
+                                <div>
+                                    Street Address {(submitted && validationErrors.address.length)?<p className='form-error'>{validationErrors.address}</p>:(<></>)}
+                                </div>
+                                <input
+                                  {...getInputProps({
+                                      placeholder: 'Address',
+                                      className: 'location-search-input',
+                                    })}
+                                    />
+                                <div className="autocomplete-dropdown-container">
+                                  {loading && <div>Loading...</div>}
+                                  {!loading && suggestions.map(suggestion => {
+                                      const className = 'suggestion-item'
+                                    //   const className = suggestion.active
+                                    //   ? 'suggestion-item--active'
+                                    //   : 'suggestion-item';
+                                      // inline style for demonstration purpose
+                                        const style = suggestion.active
+                                        ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                        : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                      return (
+                                          <div className='auto-dropdown'
+                                          {...getSuggestionItemProps(suggestion, {
+                                              className,
+                                                style,
+                                            })}
+                                            >
+                                        <span>{suggestion.description}</span>
+                                      </div>
+                                    );
+                                })}
+                                </div>
+
+                            </label>
+                            )}
+                        </PlacesAutocomplete>
+                        {/* <input
                             type='text'
                             onChange={(e) => setAddress(e.target.value)}
                             value={address}
-                        />
+                        /> */}
                     </label>
                 </div>
                 <div>
@@ -262,7 +333,12 @@ export default function CreateBusinessForm() {
                 </div>
                 <div>
                     <label for="state-dropdown">Select a state:
-                        <select id="state-dropdown" name="state" onChange={(e) => setState(e.target.value)}>
+                    <input
+                            type='text'
+                            onChange={(e) => setState(e.target.value)}
+                            value={state}
+                        />
+                        {/* <select id="state-dropdown" name="state" onChange={(e) => setState(e.target.value)}>
                             <option value="">-- Select a state --</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
@@ -314,10 +390,10 @@ export default function CreateBusinessForm() {
                             <option value="WV">West Virginia</option>
                             <option value="WI">Wisconsin</option>
                             <option value="WY">Wyoming</option>
-                        </select>
+                        </select> */}
                     </label>
                 </div>
-                <div>
+                {/* <div>
                     <label>
                         Longitude? <span className='validationErrors'>{validationErrors.lng}</span>
                         <input
@@ -336,7 +412,7 @@ export default function CreateBusinessForm() {
                             value={lat}
                         />
                     </label>
-                </div>
+                </div> */}
                 <div>
                     <label>
                         What price category does your business belong to? <span className='validationErrors'>{validationErrors.price}</span>
